@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Desired state for a single-node SigNoz observability stack on DigitalOcean at signoz-digitalocean.bigconfig.online — the signoz package's second-provider deployment under the Compute Provider Standard.">
+  <title>signoz-digitalocean — getcolors deployment</title>
+  <style>
+    :root{color-scheme:light;--ink:#1f2328;--muted:#59636e;--line:#d0d7de;--soft:#f6f8fa;--blue:#0969da;--green:#1a7f37}*{box-sizing:border-box}body{margin:0;color:var(--ink);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:920px;margin:auto;padding:64px 28px 100px}h1{font-size:48px;line-height:1.05;margin:0}h2{margin-top:54px;padding-bottom:8px;border-bottom:1px solid var(--line)}.lead{font-size:20px;color:var(--muted);max-width:790px}code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}pre{padding:18px;overflow:auto;border:1px solid var(--line);border-radius:8px;background:var(--soft)}:not(pre)>code{padding:.12em .35em;border-radius:5px;background:var(--soft)}a{color:var(--blue)}.eyebrow{color:var(--green);font-weight:700;letter-spacing:.08em}.callout{padding:16px 18px;border-left:4px solid var(--green);background:#dafbe1}.warn{padding:16px 18px;border-left:4px solid #bf8700;background:#fff8c5}@media(max-width:650px){main{padding-top:38px}h1{font-size:36px}}
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4VKP1WY4QJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-4VKP1WY4QJ',{page_title:'signoz-digitalocean — getcolors deployment'});</script>
+<script src="https://rybbit.getcolors.ai/api/script.js" data-site-id="9fb9c41a6d49" defer></script>
+</head>
+<body><main>
+  <p class="eyebrow">DEPLOYMENT · DIGITALOCEAN · OBSERVABILITY</p>
+  <h1>signoz-digitalocean</h1>
+  <p class="lead">Desired state for one SigNoz observability server: ClickHouse, ClickHouse Keeper, a Postgres metastore, the SigNoz application and the <code>signoz-otel-collector</code> ingester behind Caddy on a single guarded DigitalOcean Droplet in Amsterdam.</p>
+
+  <div class="callout"><strong>Same package, second provider:</strong> this is the <a href="https://github.com/getcolors/signoz">signoz Package Skill</a> that also runs <a href="https://github.com/getcolors/signoz-vultr">signoz-vultr</a>, selected onto DigitalOcean by <code>provider-compute: digitalocean</code> and the <code>digitalocean-*</code> keys alone, under the workspace Compute Provider Standard. <a href="https://signoz-digitalocean.bigconfig.online">signoz-digitalocean.bigconfig.online</a> serves the dashboard and accepts OTLP/HTTP on <code>/v1/logs</code>, <code>/v1/traces</code> and <code>/v1/metrics</code> behind a bearer token generated on the server.</div>
+
+  <h2>What is tracked here</h2>
+  <p><code>colors.yml</code> (the only editable desired state), the three installed signoz Package Skill payloads and their lockfile, root launchers copied from those payloads, toolchain files, documentation, and <code>verification.md</code>, the record of the live verification this deployment passed. Credentials live in gitignored <code>.envrc.private</code>; generated output in <code>.colors/</code> is never committed.</p>
+
+  <h2>Lifecycle</h2>
+  <pre><code>direnv allow
+./green build
+./green create --dry-run
+./green create</code></pre>
+  <p>Build and dry-run are credential-free and never read <code>~/.ssh</code>. Real creation converges the droplet in the region's default VPC, its cloud firewall, the proxied Cloudflare record and the Compose stack, provisions the root account, and proves ingestion through the public path. Deletion stays guarded by <code>compute-prevent-destroy: true</code>, and a change of <code>provider-compute</code> on a profile with a machine in state is refused: a provider switch is a delete and a create, never an apply.</p>
+
+  <h2>The machine keypair is not in this repository</h2>
+  <div class="warn">This deployment runs in <strong>keygen mode</strong>: <code>colors.yml</code> carries no <code>digitalocean-ssh-keys</code>, so the package generates and owns <code>~/.ssh/signoz-digitalocean</code> outside the checkout. Cloning this repository elsewhere does not carry machine access — copy the keypair deliberately, or <code>create</code> refuses rather than regenerating a key that cannot reach the live host.</div>
+
+  <h2>Reaching the host</h2>
+  <p>Convergence writes one <code>~/.ssh/config</code> block following the workspace SSH Config Standard, so <code>ssh signoz-digitalocean</code> connects with no address, user or <code>-i</code> flag, and <code>delete</code> removes it before destroying the droplet.</p>
+
+  <h2>Credentials</h2>
+  <p>The root password is the one operator-supplied application secret and the account's only record. The OTLP ingestion bearer token and the Postgres password are generated on the server, mode 0600, and exist nowhere else; read the token from <code>/etc/signoz/ingestion.env</code> over SSH.</p>
+
+  <h2>Source</h2>
+  <p><a href="https://github.com/getcolors/signoz-digitalocean">This deployment on GitHub</a> · <a href="https://github.com/getcolors/signoz">Package Skill source</a> · <a href="https://github.com/getcolors/workspace/blob/main/standards/compute-provider.md">Compute Provider Standard</a></p>
+</main></body>
+</html>
