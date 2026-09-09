@@ -1,6 +1,6 @@
 # Shared compute rollout
 
-Installed package: `getcolors/signoz` at published revision `5f5d8cf84e6ee2ca7da059b4ea772ae58f2b999d`.
+Installed package: `getcolors/signoz` at published revision `afc2e5fea7aada2064193b997d4011cddc332158`.
 The installed skill directories and root launchers were copied from a verified
 Skills CLI installation of that revision. The existing skills-lock.json entries were updated from that installation.
 
