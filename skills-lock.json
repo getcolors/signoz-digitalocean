@@ -5,19 +5,19 @@
       "source": "getcolors/signoz",
       "sourceType": "github",
       "skillPath": "skills/package-signoz-blue/SKILL.md",
-      "computedHash": "5bda068e410ba4c1d68cd863b5b3f1227138f94d7b9c79b3282d506f32766570"
+      "computedHash": "6d672fa4805901b5f76c62cd3c2365efdb03b99bdaece421eede336339bf5604"
     },
     "package-signoz-green": {
       "source": "getcolors/signoz",
       "sourceType": "github",
       "skillPath": "skills/package-signoz-green/SKILL.md",
-      "computedHash": "0e336726f404b818aadb485c03e7e3950120d2aefb1655e546eb214af8a24d2e"
+      "computedHash": "50dec1863d312063900ad4d0f8ebd56447132006d71a19ceccf73a26b7e9b502"
     },
     "package-signoz-red": {
       "source": "getcolors/signoz",
       "sourceType": "github",
       "skillPath": "skills/package-signoz-red/SKILL.md",
-      "computedHash": "355628c36e14180241e1e82e07400600989dc510cab3c90fa6ad9ff0f96e8031"
+      "computedHash": "30cb5a68438267506ccbb98db930db18d74b0ae316389f176df3f01936195cf8"
     }
   }
 }
